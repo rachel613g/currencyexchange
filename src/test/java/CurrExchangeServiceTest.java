@@ -1,11 +1,13 @@
 
 import org.junit.Test;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class CurrExchangeServiceTest
@@ -22,10 +24,11 @@ public class CurrExchangeServiceTest
 
         CurrExchangeService service = retrofit.create(CurrExchangeService.class);
         //when
-        CurrencyExchange currencyExchange = service.getCurrencyExchangeRate("USD").execute().body();
+        Response<CurrencyExchange> response = service.getCurrencyExchangeRate("USD").execute();
 
         //then
-        assertNotNull(currencyExchange.conversion_rates);
+        assertTrue(response.message(), response.isSuccessful());
+        //assertNotNull(currencyExchange.conversion_rates);
         //assertFalse(currencyExchange.conversion_rates);
     }
 }
