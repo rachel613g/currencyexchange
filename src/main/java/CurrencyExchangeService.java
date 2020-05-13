@@ -10,6 +10,5 @@ public interface CurrencyExchangeService
 }
 //for some reason when I used a @Query instead, gradle couldn't find the URL
 //this is what I had written. In the error message I saw that it had base_currency? included.
-//this is what I wrote before
+//this is what I wrote before:
 //@Query("base_currency") String baseCurrency
-//I have realized that my test passes but never ends
