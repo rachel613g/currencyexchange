@@ -11,8 +11,13 @@ public class CurrencyExchangeCalculator
         return Double.parseDouble(df.format(foreignEquivalent));
     }
 
-    public void setCalculatorInput(double rate)
+    public void setRate(double rate)
     {
         this.rate = rate;
+    }
+
+    public double getRate()
+    {
+        return rate;
     }
 }

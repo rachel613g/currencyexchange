@@ -26,7 +26,7 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
     public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response)
     {
         CurrencyExchange currencyExchange = response.body();
-        calculator.setCalculatorInput(currencyExchange.conversion_rates.ILS);
+        calculator.setRate(currencyExchange.conversion_rates.ILS);
     }
 
     @Override
