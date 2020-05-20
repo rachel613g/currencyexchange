@@ -46,6 +46,8 @@ public class CurrencyExchangeControllerTest
 
         when(currencyExchange.getILS()).thenReturn(3.564);
         doReturn(currencyExchange).when(response).body();
+        //when
+        controller.requestData();
 
                 //then
         verify(currencyExchange);
