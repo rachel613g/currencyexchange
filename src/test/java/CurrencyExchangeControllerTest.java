@@ -1,16 +1,16 @@
-import javafx.util.Callback;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.mockito.Mockito;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class CurrencyExchangeControllerTest
 {
 
-    //we will turn onResponse into an accessible method
     @Test
     public void requestData()
     {
@@ -18,11 +18,15 @@ public class CurrencyExchangeControllerTest
         Call<CurrencyExchange> call = mock(Call.class);
         String baseCurrency = "USD";
         CurrencyExchangeService service = mock(CurrencyExchangeService.class);
+
+        doReturn(call).when(service).getCurrencyExchangeRate(baseCurrency);
+
         CurrencyExchangeCalculator calculator = mock(CurrencyExchangeCalculator.class);
         CurrencyExchangeController controller = new CurrencyExchangeController(baseCurrency, service, calculator);
         //when
         controller.requestData();
         //then
+        verify(service).getCurrencyExchangeRate(baseCurrency);
         verify(call).enqueue(controller);
     }
 
@@ -34,14 +38,17 @@ public class CurrencyExchangeControllerTest
         CurrencyExchangeService service = mock(CurrencyExchangeService.class);
         CurrencyExchangeCalculator calculator = mock(CurrencyExchangeCalculator.class);
         CurrencyExchangeController controller = new CurrencyExchangeController(baseCurrency, service, calculator);
+
         Call<CurrencyExchange> call = mock(Call.class);
         Response<CurrencyExchange> response = mock(Response.class);
 
-        //when
-        controller.onResponse(call,response);
+        CurrencyExchange currencyExchange = new CurrencyExchange();
 
-        //then
-        assertEquals(3.5164,calculator.getRate(),0.01);
+        when(currencyExchange.getILS()).thenReturn(3.564);
+        doReturn(currencyExchange).when(response).body();
+
+                //then
+        verify(currencyExchange);
+        verify(calculator).setRate(currencyExchange.getILS());
     }
 }
-

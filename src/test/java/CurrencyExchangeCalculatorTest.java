@@ -6,7 +6,7 @@ public class CurrencyExchangeCalculatorTest
 {
 
     @Test
-    public void calculate()
+    public void calculate() throws InvalidRateException
     {
         //given
         CurrencyExchangeCalculator calculator = new CurrencyExchangeCalculator();

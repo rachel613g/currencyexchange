@@ -2,12 +2,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
+
 public class CurrencyExchangeController implements Callback<CurrencyExchange>
 {
     CurrencyExchangeService service;
     CurrencyExchangeCalculator calculator;
     String baseCurrency;
 
+    /**
+     * pass in dependencies because of Dependency Injection
+     * makes testing easier
+     * @param baseCurrency
+     * @param service
+     * @param calculator
+     */
     public CurrencyExchangeController(String baseCurrency, CurrencyExchangeService service, CurrencyExchangeCalculator calculator)
     {
         this.baseCurrency = baseCurrency;
@@ -26,13 +35,13 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
     public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response)
     {
         CurrencyExchange currencyExchange = response.body();
-        calculator.setRate(currencyExchange.conversion_rates.ILS);
+        calculator.setRate(currencyExchange.getILS());
     }
 
     @Override
     public void onFailure(Call<CurrencyExchange> call, Throwable t)
     {
-
+        t.printStackTrace();
     }
 
 

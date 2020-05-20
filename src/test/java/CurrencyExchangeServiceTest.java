@@ -31,5 +31,6 @@ public class CurrencyExchangeServiceTest
         //then
         assertTrue(response.message(), response.isSuccessful());
         assertNotNull(currencyExchange.conversion_rates.USD);
+        assertNotNull(currencyExchange.conversion_rates.ILS);
     }
 }
