@@ -1,11 +1,7 @@
 import org.junit.Test;
-import org.mockito.Mockito;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import java.io.IOException;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class CurrencyExchangeControllerTest
@@ -26,6 +22,7 @@ public class CurrencyExchangeControllerTest
         //when
         controller.requestData();
         //then
+        //verify this method was called with these arguments
         verify(service).getCurrencyExchangeRate(baseCurrency);
         verify(call).enqueue(controller);
     }
@@ -42,15 +39,17 @@ public class CurrencyExchangeControllerTest
         Call<CurrencyExchange> call = mock(Call.class);
         Response<CurrencyExchange> response = mock(Response.class);
 
+        CurrencyExchange.ConversionRates conversionRates = new CurrencyExchange.ConversionRates();
         CurrencyExchange currencyExchange = new CurrencyExchange();
 
-        when(currencyExchange.getILS()).thenReturn(3.564);
+        //mock response populating currencyExchange
         doReturn(currencyExchange).when(response).body();
-        //when
-        controller.requestData();
 
-                //then
+        //when
+        controller.onResponse(call, response);
+
+        //then
         verify(currencyExchange);
-        verify(calculator).setRate(currencyExchange.getILS());
+        verify(calculator).setRate(currencyExchange.conversionRates.getILS());
     }
 }

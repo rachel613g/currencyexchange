@@ -1,23 +1,27 @@
-import java.util.HashMap;
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class CurrencyExchange
 {
     String base;
-    conversion_rates conversion_rates;
+    @SerializedName("conversion_rates")
+    ConversionRates conversionRates;
 
 
-    public class conversion_rates
+    public static class ConversionRates
     {
         double USD;
-        double CAD;
-        double EUR;
         double ILS;
+
+        public double getILS()
+        {
+            return ILS;
+        }
+
+        public void setILS(double rate)
+        {
+            ILS = rate;
+        }
     }
 
-    public double getILS()
-    {
-        return conversion_rates.ILS;
-    }
 
 }

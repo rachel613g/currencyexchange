@@ -35,7 +35,9 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
     public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response)
     {
         CurrencyExchange currencyExchange = response.body();
-        calculator.setRate(currencyExchange.getILS());
+        //changed from just getting directly from conversionRates class to getter
+        //because I used getILS() in a test
+        calculator.setRate(currencyExchange.conversionRates.getILS());
     }
 
     @Override
