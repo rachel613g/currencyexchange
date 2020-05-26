@@ -16,11 +16,6 @@ public class CurrencyExchange
         {
             return ILS;
         }
-
-        public void setILS(double rate)
-        {
-            ILS = rate;
-        }
     }
 
 

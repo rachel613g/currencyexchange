@@ -1,10 +1,16 @@
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class CurrencyExchangeTest
 {
-    /*
-    todo
-    write test so I can test controller with a clear mind.
-     */
+    @Test
+    public void getILS()
+    {
+        CurrencyExchange.ConversionRates conversionRates = new CurrencyExchange.ConversionRates();
 
+        double getILS = conversionRates.getILS();
+
+        assertEquals(3.546, getILS,0);
+    }
 }

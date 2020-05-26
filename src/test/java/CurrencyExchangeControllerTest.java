@@ -39,17 +39,18 @@ public class CurrencyExchangeControllerTest
         Call<CurrencyExchange> call = mock(Call.class);
         Response<CurrencyExchange> response = mock(Response.class);
 
-        CurrencyExchange.ConversionRates conversionRates = new CurrencyExchange.ConversionRates();
-        CurrencyExchange currencyExchange = new CurrencyExchange();
+        CurrencyExchange currencyExchange = mock(CurrencyExchange.class);
+        CurrencyExchange.ConversionRates conversionRates = mock(CurrencyExchange.ConversionRates.class);
 
         //mock response populating currencyExchange
         doReturn(currencyExchange).when(response).body();
+        currencyExchange.conversionRates = conversionRates;
+        when(conversionRates.getILS()).thenReturn(3.5263);
 
         //when
         controller.onResponse(call, response);
 
         //then
-        verify(currencyExchange);
-        verify(calculator).setRate(currencyExchange.conversionRates.getILS());
+        verify(calculator).setRate(3.5263);
     }
 }
