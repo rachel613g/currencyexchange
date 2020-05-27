@@ -1,3 +1,5 @@
+package gutmann.currencyexchange;
+
 public class InvalidRateException extends Exception
 {
     public InvalidRateException(){

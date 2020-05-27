@@ -1,3 +1,7 @@
+package gutmann.currencyexchange;
+
+import gutmann.currencyexchange.CurrencyExchangeCalculator;
+import gutmann.currencyexchange.InvalidRateException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

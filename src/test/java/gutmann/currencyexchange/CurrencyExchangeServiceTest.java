@@ -1,4 +1,7 @@
+package gutmann.currencyexchange;
 
+import gutmann.currencyexchange.CurrencyExchange;
+import gutmann.currencyexchange.CurrencyExchangeService;
 import org.junit.Test;
 import retrofit2.Response;
 import retrofit2.Retrofit;

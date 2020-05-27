@@ -1,3 +1,6 @@
+package gutmann.currencyexchange;
+
+import gutmann.currencyexchange.CurrencyExchange;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

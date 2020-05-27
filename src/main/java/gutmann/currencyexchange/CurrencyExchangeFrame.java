@@ -1,11 +1,10 @@
+package gutmann.currencyexchange;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class CurrencyExchangeFrame extends JFrame
 {

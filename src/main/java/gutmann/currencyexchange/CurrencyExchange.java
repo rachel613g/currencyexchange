@@ -1,3 +1,5 @@
+package gutmann.currencyexchange;
+
 import com.google.gson.annotations.SerializedName;
 
 public class CurrencyExchange

@@ -1,3 +1,5 @@
+package gutmann.currencyexchange;
+
 import java.text.DecimalFormat;
 
 public class CurrencyExchangeCalculator
