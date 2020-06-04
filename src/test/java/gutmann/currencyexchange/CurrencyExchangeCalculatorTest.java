@@ -8,6 +8,14 @@ import static org.junit.Assert.*;
 
 public class CurrencyExchangeCalculatorTest
 {
+    @Test
+    public void setRate()
+    {
+        CurrencyExchangeCalculator calculator = new CurrencyExchangeCalculator();
+        calculator.setRate(3.5146);
+
+        assertNotNull(calculator.rate);
+    }
 
     @Test
     public void calculate() throws InvalidRateException
@@ -18,6 +26,6 @@ public class CurrencyExchangeCalculatorTest
         //when
         double calculateReturn = calculator.calculate(45.0);
         //then
-        assertEquals(158.24, calculateReturn,0.01);
+        assertEquals(158.24, calculateReturn, 0.01);
     }
 }
