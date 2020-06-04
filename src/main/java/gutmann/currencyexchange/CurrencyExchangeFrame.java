@@ -18,7 +18,7 @@ public class CurrencyExchangeFrame extends JFrame
     JTextArea foreignEquivalentTextArea;
 
     //for now the base currency is dollars
-    //may change app to allow user input of basecurrency in the future
+    //may change app to allow user input of basecurrency and foreign currency in the future
     String baseCurrency = "USD";
 
     Retrofit retrofit;
@@ -29,7 +29,7 @@ public class CurrencyExchangeFrame extends JFrame
 
     public CurrencyExchangeFrame() throws InvalidRateException
     {
-        setSize(new Dimension(500, 500));
+        setSize(new Dimension(800, 200));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Convert US Dollars to Shekel");
         setLayout(new GridLayout());
@@ -53,16 +53,7 @@ public class CurrencyExchangeFrame extends JFrame
         add(baseTextArea);
         add(foreignEquivalentLabel);
         add(foreignEquivalentTextArea);
-/*
-todo
-make a FactoryClass to create service
- */
-        retrofit = new Retrofit.Builder()
-                .baseUrl("https://prime.exchangerate-api.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        service = retrofit.create(CurrencyExchangeService.class);
 
         enterButton.addActionListener(actionEvent -> enterUserInputRequestTheData());
         clearButton.addActionListener(actionEvent -> clearFrame());
@@ -70,6 +61,10 @@ make a FactoryClass to create service
 
     private void enterUserInputRequestTheData()
     {
+        //should I have initialized this in before this method is called?
+        //service is initialized within the ServiceFactory class. In general how do I know if one class
+        //initializes the other? Or was what I did a bad design?
+        service = new CurrencyExchangeServiceFactory().getInstance();
         calculator = new CurrencyExchangeCalculator();
         controller = new CurrencyExchangeController(baseCurrency, service, calculator);
         controller.requestData();
@@ -77,11 +72,10 @@ make a FactoryClass to create service
         try
         {
             calculate = calculator.calculate(Double.parseDouble(inputBaseAmountTextField.getText()));
-            Thread thread = new Thread();
-            thread.sleep(10);
-        } catch (InvalidRateException | InterruptedException e)
+
+        } catch (InvalidRateException e)
         {
-            foreignEquivalentTextArea.append(e.getMessage());
+            foreignEquivalentTextArea.append("Error" + e.getMessage());
         }
         baseTextArea.append(inputBaseAmountTextField.getText() + "$");
         foreignEquivalentTextArea.append(Double.toString(calculate) + "\u20AA");
