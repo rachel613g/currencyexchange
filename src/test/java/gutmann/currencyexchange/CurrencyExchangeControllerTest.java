@@ -1,9 +1,5 @@
 package gutmann.currencyexchange;
 
-import gutmann.currencyexchange.CurrencyExchange;
-import gutmann.currencyexchange.CurrencyExchangeCalculator;
-import gutmann.currencyexchange.CurrencyExchangeController;
-import gutmann.currencyexchange.CurrencyExchangeService;
 import org.junit.Test;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -26,7 +22,7 @@ public class CurrencyExchangeControllerTest
         CurrencyExchangeCalculator calculator = mock(CurrencyExchangeCalculator.class);
         CurrencyExchangeController controller = new CurrencyExchangeController(baseCurrency, service, calculator);
         //when
-        controller.requestData();
+        controller.requestData(45);
         //then
         //verify this method was called with these arguments
         verify(service).getCurrencyExchangeRate(baseCurrency);

@@ -18,14 +18,8 @@ public class CurrencyExchangeServiceTest
     @Test
     public void getCurrencyExchangeRate() throws IOException
     {
-        //https://prime.exchangerate-api.com/v5/9d5705c195ce3af5a08d04cf/latest/USD
-        //given
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://prime.exchangerate-api.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        CurrencyExchangeService service = retrofit.create(CurrencyExchangeService.class);
+        CurrencyExchangeService service = new CurrencyExchangeServiceFactory().getInstance();
         //when
         Response<CurrencyExchange> response = service.getCurrencyExchangeRate("USD").execute();
         CurrencyExchange currencyExchange = response.body();

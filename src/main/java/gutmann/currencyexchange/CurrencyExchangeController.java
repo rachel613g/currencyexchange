@@ -9,6 +9,10 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
     CurrencyExchangeService service;
     CurrencyExchangeCalculator calculator;
     String baseCurrency;
+    double returnValue;
+    double baseAmount;
+    String errorMessage;
+
 
     /**
      * pass in dependencies because of Dependency Injection
@@ -24,10 +28,9 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
         this.calculator = calculator;
     }
 
-    public void requestData()
+    public void requestData(double baseAmount)
     {
-        //below we pass in the controller class because it is a implementation of Callback interface
-        //instead of the anonymous Callback class we had before
+        this.baseAmount = baseAmount;
         service.getCurrencyExchangeRate(baseCurrency).enqueue(this);
     }
 
@@ -38,6 +41,13 @@ public class CurrencyExchangeController implements Callback<CurrencyExchange>
         //changed from just getting directly from conversionRates class to getter
         //because I used getILS() in a test
         calculator.setRate(currencyExchange.conversionRates.getILS());
+        try
+        {
+            returnValue = calculator.calculate(baseAmount);
+        } catch (InvalidRateException e)
+        {
+           errorMessage = e.getMessage();
+        }
     }
 
     @Override
